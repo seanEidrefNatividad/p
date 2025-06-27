@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enhanced Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --text: #222;
+      --card-bg: #fff;
+      --accent: #0d6efd;
+    }
+    body.dark {
+      --bg: #0d1117;
+      --text: #ccc;
+      --card-bg: #161b22;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+    header {
+      background: var(--card-bg);
+      text-align: center;
+      padding: 3rem 1rem;
+      position: relative;
+    }
+    header h1 { font-size: 2.8rem; }
+    header p { font-size: 1.2rem; color: var(--text); }
+    nav {
+      background: var(--card-bg);
+      text-align: center;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      position: relative;
+    }
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--accent);
+    }
+    .toggle-theme {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    section {
+      padding: 4rem 2rem;
+      max-width: 960px;
+      margin: auto;
+      min-height: 60vh;
+    }
+    #skills .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .skills-grid div {
+      background: var(--card-bg);
+      padding: 1rem;
+      text-align: center;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    #projects-section {
+      background: var(--bg);
+      padding: 4rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    #projects-section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+    .projects {
+      display: flex;
+      /* gap: 2rem;
+      padding: 1rem; */
+      width: max-content;
+    }
+    .project-box {
+      background: var(--card-bg);
+      /* min-width: min(80vw, 600px); */
+      /* height: 350px; */
+      width: min(100vw,960px);
+      height: 70vh;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .project-box img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+    .project-box h3 {
+      padding: 1rem;
+      font-size: 1.2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--card-bg);
+      color: #888;
+    }
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+    .modal-content h3 {
+      margin-bottom: 1rem;
+    }
+    .close-modal {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toggle-theme">🌓</div>
+
+  <header id="hero">
+    <h1>Your Name</h1>
+    <p>Web Developer • Designer • Tech Enthusiast</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects-section">Projects</a>
+    <a href="#certificates">Certificates</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#goals">Goals</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a passionate web developer skilled in HTML, CSS, JavaScript, PHP, CodeIgniter, and React. I build responsive and functional web apps that solve real problems.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div>HTML5</div>
+      <div>CSS3</div>
+      <div>JavaScript</div>
+      <div>PHP</div>
+      <div>CodeIgniter</div>
+      <div>React</div>
+      <div>MySQL</div>
+      <div>Git</div>
+    </div>
+  </section>
+
+  <section id="projects-section">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project-box" data-title="Project 1" data-desc="Dynamic blog site using PHP and MySQL.">
+        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 1">
+        <h3>Blog Platform</h3>
+      </div>
+      <div class="project-box" data-title="Project 2" data-desc="Responsive portfolio built with React.">
+        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 2">
+        <h3>React Portfolio</h3>
+      </div>
+      <div class="project-box" data-title="Project 3" data-desc="Chat app using Socket.IO and Express.js.">
+        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 3">
+        <h3>Chat App</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="certificates">
+    <h2>Certificates & Achievements</h2>
+    <ul>
+      <li>Responsive Web Design – freeCodeCamp</li>
+      <li>JavaScript Algorithms – freeCodeCamp</li>
+    </ul>
+  </section>
+
+  <section id="testimonials">
+    <h2>Testimonials</h2>
+    <blockquote>"An outstanding developer who always delivers!" — Former Client</blockquote>
+    <blockquote>"Great team player and problem solver." — Team Lead</blockquote>
+  </section>
+
+  <section id="goals">
+    <h2>Career Goals</h2>
+    <p>I’m seeking a front-end developer role in a creative team focused on building accessible and impactful web applications.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    <p>GitHub: <a href="#">github.com/yourusername</a></p>
+    <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Your Name. All rights reserved.
+  </footer>
+
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3 id="modalTitle">Project Title</h3>
+      <p id="modalDesc">Project description...</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+
+    // Function to calculate and apply the new X value
+    function updateScrollAnimation() {
+      const projects = document.querySelector(".projects");
+      const projectBoxes = document.querySelectorAll(".project-box");
+
+      // Kill previous ScrollTrigger if it exists
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+      // Recalculate and create ScrollTrigger
+      gsap.to(projects, {
+        x: () => -(projectBoxes[0].offsetWidth * (projectBoxes.length - 1)),
+        ease: "none",
+        scrollTrigger: {
+          trigger: "#projects-section",
+          start: "top top",
+          end: () => `+=${projectBoxes[0].offsetWidth * (projectBoxes.length - 1)}`,
+          scrub: true,
+          pin: true,
+          anticipatePin: 1
+        }
+      });
+
+      // Refresh ScrollTrigger system
+      ScrollTrigger.refresh();
+    }
+
+    // Initial run
+    updateScrollAnimation();
+
+    // Update on resize (debounced)
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        updateScrollAnimation();
+      }, 200); // Debounce delay
+    });
+
+
+    // Theme toggle
+    document.querySelector('.toggle-theme').onclick = () => {
+      document.body.classList.toggle('dark');
+    };
+
+    // Smooth scroll
+    document.querySelectorAll("nav a").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    // Active nav via IntersectionObserver
+    const navLinks = document.querySelectorAll("nav a");
+    const sections = document.querySelectorAll("section[id]");
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const id = entry.target.getAttribute("id");
+        const link = document.querySelector(`nav a[href="#${id}"]`);
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove("active"));
+          if (link) link.classList.add("active");
+        }
+      });
+    }, {
+      threshold: 0.5
+    });
+    sections.forEach(section => sectionObserver.observe(section));
+
+    ScrollTrigger.create({
+      trigger: "#projects-section",
+      start: "top center",
+      end: "bottom center",
+      onEnter: () => {
+        navLinks.forEach(a => a.classList.remove("active"));
+        document.querySelector('nav a[href="#projects-section"]').classList.add("active");
+      },
+      onEnterBack: () => {
+        navLinks.forEach(a => a.classList.remove("active"));
+        document.querySelector('nav a[href="#projects-section"]').classList.add("active");
+      }
+    });
+
+    // Modal logic
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    document.querySelectorAll('.project-box').forEach(box => {
+      box.onclick = () => {
+        modalTitle.textContent = box.dataset.title;
+        modalDesc.textContent = box.dataset.desc;
+        modal.style.display = 'flex';
+      };
+    });
+    document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
+    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+  </script>
+</body>
+</html>
