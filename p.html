@@ -31,6 +31,12 @@
       padding: 3rem 1rem;
       position: relative;
     }
+    #hero {
+      height: 50vh !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     header h1 { font-size: 2.8rem; }
     header p { font-size: 1.2rem; color: var(--text); }
     nav {
@@ -40,6 +46,9 @@
       position: sticky;
       top: 0;
       z-index: 999;
+      justify-content: space-evenly;
+      max-width: 960px;
+      margin: auto;
     }
     nav a {
       margin: 0 15px;
@@ -57,6 +66,13 @@
       left: 0;
       background: var(--accent);
     }
+    .fade-text{
+      opacity: 0;
+    }
+    .fade-in {
+      opacity: 0; /* Start hidden */
+      transform: translateY(30px); /* Optional initial offset */
+    }
     .toggle-theme {
       position: absolute;
       right: 1rem;
@@ -66,9 +82,11 @@
     }
     section {
       padding: 4rem 2rem;
+      padding-top: 180px;
       max-width: 960px;
       margin: auto;
-      min-height: 60vh;
+      min-height: 80vh;
+      /* height: 100vh; */
     }
     #skills .skills-grid {
       display: grid;
@@ -86,6 +104,7 @@
     #projects-section {
       background: var(--bg);
       padding: 4rem 0;
+      padding-top: 130px;
       overflow: hidden;
       position: relative;
     }
@@ -158,6 +177,27 @@
       cursor: pointer;
       color: var(--accent);
     }
+
+    .shrink {
+      padding-top: 280px;
+    }
+
+    nav {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      white-space: nowrap;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    nav::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    nav a {
+      padding: 1rem;
+      flex: 0 0 auto;
+    }
   </style>
 </head>
 <body>
@@ -165,11 +205,11 @@
   <div class="toggle-theme">🌓</div>
 
   <header id="hero">
-    <h1>Your Name</h1>
-    <p>Web Developer • Designer • Tech Enthusiast</p>
+    <h1 class="fade-in">Your Name</h1>
+    <p class="fade-in">Web Developer • Designer • Tech Enthusiast</p>
   </header>
 
-  <nav>
+  <nav id="nav" class="fade-in">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects-section">Projects</a>
@@ -179,22 +219,22 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I'm a passionate web developer skilled in HTML, CSS, JavaScript, PHP, CodeIgniter, and React. I build responsive and functional web apps that solve real problems.</p>
+  <section id="about" class="shrink">
+    <h2 class="fade-text">About Me</h2>
+    <p class="fade-text">I'm a passionate web developer skilled in HTML, CSS, JavaScript, PHP, CodeIgniter, and React. I build responsive and functional web apps that solve real problems.</p>
   </section>
 
   <section id="skills">
-    <h2>Skills</h2>
+    <h2 class="fade-text">Skills</h2>
     <div class="skills-grid">
-      <div>HTML5</div>
-      <div>CSS3</div>
-      <div>JavaScript</div>
-      <div>PHP</div>
-      <div>CodeIgniter</div>
-      <div>React</div>
-      <div>MySQL</div>
-      <div>Git</div>
+      <div class="fade-text">HTML5</div>
+      <div class="fade-text">CSS3</div>
+      <div class="fade-text">JavaScript</div>
+      <div class="fade-text">PHP</div>
+      <div class="fade-text">CodeIgniter</div>
+      <div class="fade-text">React</div>
+      <div class="fade-text">MySQL</div>
+      <div class="fade-text">Git</div>
     </div>
   </section>
 
@@ -202,44 +242,44 @@
     <h2>Projects</h2>
     <div class="projects">
       <div class="project-box" data-title="Project 1" data-desc="Dynamic blog site using PHP and MySQL.">
-        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 1">
+        <img src="ev1.png" alt="Project 1">
         <h3>Blog Platform</h3>
       </div>
       <div class="project-box" data-title="Project 2" data-desc="Responsive portfolio built with React.">
-        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 2">
+        <img src="ev1.png" alt="Project 2">
         <h3>React Portfolio</h3>
       </div>
       <div class="project-box" data-title="Project 3" data-desc="Chat app using Socket.IO and Express.js.">
-        <img src="https://www.itstactical.com/wp-content/uploads/2013/07/night-sky-jeff-m-1024.png" alt="Project 3">
+        <img src="ev1.png" alt="Project 3">
         <h3>Chat App</h3>
       </div>
     </div>
   </section>
 
   <section id="certificates">
-    <h2>Certificates & Achievements</h2>
+    <h2 class="fade-text">Certificates & Achievements</h2>
     <ul>
-      <li>Responsive Web Design – freeCodeCamp</li>
-      <li>JavaScript Algorithms – freeCodeCamp</li>
+      <li class="fade-text">Responsive Web Design – freeCodeCamp</li>
+      <li class="fade-text">JavaScript Algorithms – freeCodeCamp</li>
     </ul>
   </section>
 
   <section id="testimonials">
-    <h2>Testimonials</h2>
-    <blockquote>"An outstanding developer who always delivers!" — Former Client</blockquote>
-    <blockquote>"Great team player and problem solver." — Team Lead</blockquote>
+    <h2 class="fade-text">Testimonials</h2>
+    <blockquote class="fade-text">"An outstanding developer who always delivers!" — Former Client</blockquote>
+    <blockquote class="fade-text">"Great team player and problem solver." — Team Lead</blockquote>
   </section>
 
   <section id="goals">
-    <h2>Career Goals</h2>
-    <p>I’m seeking a front-end developer role in a creative team focused on building accessible and impactful web applications.</p>
+    <h2 class="fade-text">Career Goals</h2>
+    <p class="fade-text">I’m seeking a front-end developer role in a creative team focused on building accessible and impactful web applications.</p>
   </section>
 
   <section id="contact">
-    <h2>Contact Me</h2>
-    <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
-    <p>GitHub: <a href="#">github.com/yourusername</a></p>
-    <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
+    <h2 class="fade-text">Contact Me</h2>
+    <p class="fade-text">Email: <a href="mailto:you@example.com">you@example.com</a></p>
+    <p class="fade-text">GitHub: <a href="#">github.com/yourusername</a></p>
+    <p class="fade-text">LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
   </section>
 
   <footer>
@@ -262,6 +302,78 @@
 
   <script>
 
+    // Animate elements when page is loaded
+    window.addEventListener('load', () => {
+      gsap.to(".fade-in", {
+        duration: 1,
+        opacity: 1,
+        y: 0,
+        stagger: 0.2,
+        ease: "power2.out"
+      });
+    });
+
+    function fadeText() {
+      const elements = gsap.utils.toArray(".fade-text");
+      const navHeight = document.getElementById('nav')?.offsetHeight || 0;
+
+      elements.forEach(el => {
+        // Fade In
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top 97%",
+            end: "bottom 80%",
+            scrub: 1
+          }
+        })
+        .fromTo(el,
+          { opacity: 0 },
+          { opacity: 1 }
+        );
+      });
+
+      shrink()
+
+      elements.forEach(el => {
+        // Fade Out
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top 25%",
+            end: `bottom ${navHeight}`,
+            scrub: 1,
+            // markers: true
+          }
+        })
+        .fromTo(el,
+          { opacity: 1 },
+          { opacity: 0 }
+        );
+      });  
+    }
+
+    function shrink() {
+      gsap.utils.toArray(".shrink").forEach(el => {
+        // Shrink
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top 60%",
+            end: "top 50%",
+            scrub: true,
+            // markers: true
+          }
+        })
+        .fromTo(el,
+          {paddingTop: 280},
+          {paddingTop: 180},
+        )
+        
+      })
+    }
+    
+
     // Function to calculate and apply the new X value
     function updateScrollAnimation() {
       const projects = document.querySelector(".projects");
@@ -283,7 +395,7 @@
           anticipatePin: 1
         }
       });
-
+      fadeText()
       // Refresh ScrollTrigger system
       ScrollTrigger.refresh();
     }
@@ -314,36 +426,64 @@
       });
     });
 
-    // Active nav via IntersectionObserver
-    const navLinks = document.querySelectorAll("nav a");
-    const sections = document.querySelectorAll("section[id]");
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const id = entry.target.getAttribute("id");
-        const link = document.querySelector(`nav a[href="#${id}"]`);
-        if (entry.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove("active"));
-          if (link) link.classList.add("active");
-        }
-      });
-    }, {
-      threshold: 0.5
-    });
-    sections.forEach(section => sectionObserver.observe(section));
+// 1. Select all nav links and section elements
+const navLinks = document.querySelectorAll("nav a");
+const sections = document.querySelectorAll("section[id]");
 
-    ScrollTrigger.create({
-      trigger: "#projects-section",
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => {
-        navLinks.forEach(a => a.classList.remove("active"));
-        document.querySelector('nav a[href="#projects-section"]').classList.add("active");
-      },
-      onEnterBack: () => {
-        navLinks.forEach(a => a.classList.remove("active"));
-        document.querySelector('nav a[href="#projects-section"]').classList.add("active");
+// 2. Manually scroll to section and center nav link
+navLinks.forEach(link => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const targetId = link.getAttribute("href").substring(1);
+    const targetSection = document.getElementById(targetId);
+
+    if (targetSection) {
+      // Scroll to section smoothly
+      targetSection.scrollIntoView({ behavior: "smooth" });
+
+      // After browser processes scroll, center the nav link
+      requestAnimationFrame(() => {
+        link.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest"
+        });
+      });
+    }
+  });
+});
+
+// 3. Observe sections and update nav highlight and centering
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    const id = entry.target.getAttribute("id");
+    const link = document.querySelector(`nav a[href="#${id}"]`);
+
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove("active"));
+
+      if (link) {
+        link.classList.add("active");
+
+        // Scroll nav to center active link
+        requestAnimationFrame(() => {
+          link.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest"
+          });
+        });
       }
-    });
+    }
+  });
+}, {
+  threshold: 0.5 // Trigger when 50% of section is visible
+});
+
+// 4. Start observing each section
+sections.forEach(section => sectionObserver.observe(section));
+
 
     // Modal logic
     const modal = document.getElementById('projectModal');
