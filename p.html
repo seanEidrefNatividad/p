@@ -11,6 +11,7 @@
       --text: #222;
       --card-bg: #fff;
       --accent: #0d6efd;
+      --nav-height: 5rem;
     }
     body.dark {
       --bg: #0d1117;
@@ -32,7 +33,7 @@
       position: relative;
     }
     #hero {
-      height: 50vh !important;
+      height: calc(100vh - var(--nav-height, 80vh));
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -46,9 +47,13 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      justify-content: space-evenly;
-      max-width: 960px;
+      justify-content: center;
       margin: auto;
+    }
+    @media (max-width: 959px) {
+      nav {
+        justify-content: space-evenly;
+      }
     }
     nav a {
       margin: 0 15px;
@@ -74,15 +79,16 @@
       transform: translateY(30px); /* Optional initial offset */
     }
     .toggle-theme {
-      position: absolute;
+      position: fixed;
       right: 1rem;
       top: 1rem;
       cursor: pointer;
       font-weight: bold;
+      z-index: 2;
     }
     section {
       padding: 4rem 2rem;
-      padding-top: 180px;
+      padding-top: 130px;
       max-width: 960px;
       margin: auto;
       min-height: 80vh;
@@ -121,10 +127,8 @@
     }
     .project-box {
       background: var(--card-bg);
-      /* min-width: min(80vw, 600px); */
-      /* height: 350px; */
       width: min(100vw,960px);
-      height: 70vh;
+      height: 60vh;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       overflow: hidden;
@@ -178,16 +182,13 @@
       color: var(--accent);
     }
 
-    .shrink {
-      padding-top: 280px;
-    }
-
     nav {
       display: flex;
       overflow-x: auto;
       scroll-behavior: smooth;
       white-space: nowrap;
       scrollbar-width: none; /* Firefox */
+      z-index: 1;
     }
 
     nav::-webkit-scrollbar {
@@ -202,11 +203,13 @@
 </head>
 <body>
 
-  <div class="toggle-theme">🌓</div>
+  <span class="toggle-theme">🌓</span>
 
   <header id="hero">
-    <h1 class="fade-in">Your Name</h1>
-    <p class="fade-in">Web Developer • Designer • Tech Enthusiast</p>
+    <div id="hero-content">
+      <h1 class="fade-in fade-text2">Your Name</h1>
+      <p class="fade-in fade-text2">Web Developer • Designer • Tech Enthusiast</p>
+    </div>
   </header>
 
   <nav id="nav" class="fade-in">
@@ -218,8 +221,7 @@
     <a href="#goals">Goals</a>
     <a href="#contact">Contact</a>
   </nav>
-
-  <section id="about" class="shrink">
+  <section id="about">
     <h2 class="fade-text">About Me</h2>
     <p class="fade-text">I'm a passionate web developer skilled in HTML, CSS, JavaScript, PHP, CodeIgniter, and React. I build responsive and functional web apps that solve real problems.</p>
   </section>
@@ -304,6 +306,11 @@
 
     // Animate elements when page is loaded
     window.addEventListener('load', () => {
+      fadeInOnLoad()
+      updateScrollAnimation();
+    });
+
+    function fadeInOnLoad() {
       gsap.to(".fade-in", {
         duration: 1,
         opacity: 1,
@@ -311,7 +318,43 @@
         stagger: 0.2,
         ease: "power2.out"
       });
-    });
+    }
+
+    function move() {
+      gsap.to("#hero-content", {
+        y: "30vh",                     // move up 200px
+        ease: "none",                // linear movement
+        scrollTrigger: {
+          trigger: "#hero",  // the container to watch
+          start: "bottom 60%",          // when section top hits viewport top
+          end: "bottom 30%",         // until section bottom hits viewport top
+          scrub: true,               // tie animation progress to scroll
+          // markers: true              // show start/end markers for debugging
+        }
+      });
+    }
+
+    function fadeText2() {
+      const elements = gsap.utils.toArray(".fade-text2");
+      const navHeight = document.getElementById('nav')?.offsetHeight || 0;
+
+      elements.forEach(el => {
+        // Fade Out
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: "#hero",
+            start: "bottom 30%",
+            end: `bottom 10%`,
+            scrub: .5,
+            // markers: true
+          }
+        })
+        .fromTo(el,
+          { opacity: 1 },
+          { opacity: 0 }
+        );
+      });  
+    }
 
     function fadeText() {
       const elements = gsap.utils.toArray(".fade-text");
@@ -323,7 +366,7 @@
           scrollTrigger: {
             trigger: el,
             start: "top 97%",
-            end: "bottom 80%",
+            end: "bottom 75%",
             scrub: 1
           }
         })
@@ -333,15 +376,14 @@
         );
       });
 
-      shrink()
-
       elements.forEach(el => {
         // Fade Out
         gsap.timeline({
           scrollTrigger: {
             trigger: el,
-            start: "top 25%",
-            end: `bottom ${navHeight}`,
+            // start: "top 20%",
+            start: `top ${navHeight + 30}px`,
+            end: `bottom ${navHeight + 5}px`,
             scrub: 1,
             // markers: true
           }
@@ -353,36 +395,23 @@
       });  
     }
 
-    function shrink() {
-      gsap.utils.toArray(".shrink").forEach(el => {
-        // Shrink
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: "top 60%",
-            end: "top 50%",
-            scrub: true,
-            // markers: true
-          }
-        })
-        .fromTo(el,
-          {paddingTop: 280},
-          {paddingTop: 180},
-        )
-        
-      })
-    }
-    
-
     // Function to calculate and apply the new X value
     function updateScrollAnimation() {
-      const projects = document.querySelector(".projects");
-      const projectBoxes = document.querySelectorAll(".project-box");
-
       // Kill previous ScrollTrigger if it exists
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-      // Recalculate and create ScrollTrigger
+      horizontalScroll()
+      move()
+      fadeText2()
+      fadeText()
+      
+      // Refresh ScrollTrigger system
+      ScrollTrigger.refresh();
+    }
+
+    function horizontalScroll() {
+      const projects = document.querySelector(".projects");
+      const projectBoxes = document.querySelectorAll(".project-box");
       gsap.to(projects, {
         x: () => -(projectBoxes[0].offsetWidth * (projectBoxes.length - 1)),
         ease: "none",
@@ -395,13 +424,7 @@
           anticipatePin: 1
         }
       });
-      fadeText()
-      // Refresh ScrollTrigger system
-      ScrollTrigger.refresh();
     }
-
-    // Initial run
-    updateScrollAnimation();
 
     // Update on resize (debounced)
     let resizeTimeout;
