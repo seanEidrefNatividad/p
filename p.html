@@ -538,7 +538,7 @@
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        updateScrollAnimation();
+        location.reload()
       }, 200); // Debounce delay
     });
 
