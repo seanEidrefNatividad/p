@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Enhanced Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"> -->
+  <link href="fonts.css" rel="stylesheet">
+
   <style>
     :root {
       --bg: #f9f9f9;
@@ -90,10 +92,7 @@
     nav::-webkit-scrollbar {
       display: none; /* Chrome/Safari */
     }
-    .fade-text{
-      opacity: 0;
-    }
-    .fade-in {
+    .fade-in, .fade-in-nav, .fade-in-skills {
       opacity: 0; /* Start hidden */
       transform: translateY(30px); /* Optional initial offset */
     }
@@ -216,14 +215,14 @@
         </div>
       </header>
 
-      <nav id="nav" class="fade-in">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects-section">Projects</a>
-        <a href="#certificates">Certificates</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#goals">Goals</a>
-        <a href="#contact">Contact</a>
+      <nav id="nav">
+        <a class="fade-in-nav" href="#about">About</a>
+        <a class="fade-in-nav" href="#skills">Skills</a>
+        <a class="fade-in-nav" href="#projects-section">Projects</a>
+        <a class="fade-in-nav" href="#certificates">Certificates</a>
+        <a class="fade-in-nav" href="#testimonials">Testimonials</a>
+        <a class="fade-in-nav" href="#goals">Goals</a>
+        <a class="fade-in-nav" href="#contact">Contact</a>
       </nav>
       <section id="about">
         <h2 class="fade-text">About Me</h2>
@@ -231,22 +230,22 @@
       </section>
 
       <section id="skills">
-        <h2 class="fade-text">Skills</h2>
+        <h2 class="fade-text fade-in-skills">Skills</h2>
         <div class="skills-grid">
-          <div class="fade-text">HTML5</div>
-          <div class="fade-text">CSS3</div>
-          <div class="fade-text">JavaScript</div>
-          <div class="fade-text">jQuery</div>
-          <div class="fade-text">Bootstrap</div>
-          <div class="fade-text">React</div>
-          <div class="fade-text">PHP</div>
-          <div class="fade-text">CodeIgniter</div>
-          <div class="fade-text">MySQL</div>
-          <div class="fade-text">PostgreSQL</div>
-          <div class="fade-text">MongoDB</div>
-          <div class="fade-text">Node.js</div>
-          <div class="fade-text">Express</div>
-          <div class="fade-text">Cypress</div>
+          <div class="fade-text fade-in-skills">HTML5</div>
+          <div class="fade-text fade-in-skills">CSS3</div>
+          <div class="fade-text fade-in-skills">JavaScript</div>
+          <div class="fade-text fade-in-skills">jQuery</div>
+          <div class="fade-text fade-in-skills">Bootstrap</div>
+          <div class="fade-text fade-in-skills">React</div>
+          <div class="fade-text fade-in-skills">PHP</div>
+          <div class="fade-text fade-in-skills">CodeIgniter</div>
+          <div class="fade-text fade-in-skills">MySQL</div>
+          <div class="fade-text fade-in-skills">PostgreSQL</div>
+          <div class="fade-text fade-in-skills">MongoDB</div>
+          <div class="fade-text fade-in-skills">Node.js</div>
+          <div class="fade-text fade-in-skills">Express</div>
+          <div class="fade-text fade-in-skills">Cypress</div>
         </div>
       </section>
 
@@ -314,53 +313,107 @@
 
     </div>
   </div>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="SplitText.min.js"></script>
   <script src="gsap.min.js"></script>
   <script src="ScrollTrigger.min.js"></script>
   <script src="ScrollSmoother.min.js"></script>
+  <script src="ScrollToPlugin.min.js"></script>
 
   <script>
 
     // Animate elements when page is loaded
     window.addEventListener('load', () => {
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText);
       scrollSmoother()
       fadeInOnLoad()
-      updateScrollAnimation();
+      document.fonts.ready.then(() => {
+        updateScrollAnimation();
+      });
     });
 
     function scrollSmoother() {
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
-
       const smoother = ScrollSmoother.create({
         wrapper: "#smooth-wrapper",
         content: "#smooth-content",
+        smoothTouch: 3,
         smooth: 3,          // how “soft” the easing is (1 = 1s catch-up)
         effects: true,       // enables data-speed / data-lag attributes for parallax
       });
+
+      // 3) grab your nav links & sections
+      const navLinks = document.querySelectorAll("nav a");
+      const sections = document.querySelectorAll("section[id]");
+
+      // 4) click handler
+      navLinks.forEach(link => {
+        link.addEventListener("click", e => {
+          e.preventDefault();
+
+          // a) full selector, including the hash
+          const selector = link.getAttribute("href"); // e.g. "#about"
+
+          smoother.scrollTo(selector, true)
+
+          // c) then center JUST the nav item in its own scroller
+          requestAnimationFrame(() => {
+            link.scrollIntoView({
+              behavior: "smooth",
+              inline:   "center",
+              block:    "nearest"
+            });
+          });
+        });
+      });
+
+      // 5) highlight on scroll AND center active link
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target.id;
+          const link = document.querySelector(`nav a[href="#${id}"]`);
+          if (entry.isIntersecting && link) {
+            navLinks.forEach(a => a.classList.remove("active"));
+            link.classList.add("active");
+
+            // Scroll the active nav link to the center of its container
+            link.scrollIntoView({
+              behavior: "smooth",
+              inline: "center",
+              block: "nearest"
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+
+      sections.forEach(sec => sectionObserver.observe(sec));
     }
 
     function fadeInOnLoad() {
-      gsap.to(".fade-in", {
-        duration: 1,
-        opacity: 1,
-        y: 0,
-        stagger: 0.2,
-        ease: "power2.out"
-      });
+      const tl = gsap.timeline({
+          defaults: {
+            duration: 1,
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            ease: "power2.out"
+          },
+        });
+
+        // 2) Fade in nav links first, staggered
+        tl.to(".fade-in-nav", {}, 0)
+          .to(".fade-in", {}, 0)
+          .to(".fade-in-skills", {}, 0);
+
     }
 
     function move() {
       gsap.to("#hero-content", {
-        y: "30vh",                     // move up 200px
-        ease: "none",                // linear movement
+        y: "30vh",
+        ease: "none",
         scrollTrigger: {
-          trigger: "#hero",  // the container to watch
-          start: "bottom 60%",          // when section top hits viewport top
-          end: "bottom 30%",         // until section bottom hits viewport top
-          scrub: true,               // tie animation progress to scroll
-          // markers: true              // show start/end markers for debugging
+          trigger: "#hero",
+          start: "bottom 60%",
+          end: "bottom 30%",
+          scrub: true
         }
       });
     }
@@ -377,7 +430,6 @@
             start: "bottom 30%",
             end: `bottom 10%`,
             scrub: .5,
-            // markers: true
           }
         })
         .fromTo(el,
@@ -391,13 +443,20 @@
       const elements = gsap.utils.toArray(".fade-text");
       const navHeight = document.getElementById("nav")?.offsetHeight || 0;
 
+      let lines = []
       elements.forEach(el => {
-        const split = new SplitText(el, { type: "lines" });
+        const split = SplitText.create(el, { type: "lines" });
+        if (el.nodeName == "P" || el.nodeName == "H2" || el.nodeName == "LI" || el.nodeName == "DIV" || el.nodeName == "BLOCKQUOTE") {
+          lines.push(...split.lines)
+        }
+      })  
 
+      lines.forEach(el => {
         const tl = gsap.timeline({
           scrollTrigger: {
+            id: "fade",
             trigger: el,
-            start: "top 97%",               // adjust to taste
+            start: "top 97%",
             end:   `bottom ${navHeight + 5}px`,
             scrub: true,
             // markers: true
@@ -405,72 +464,55 @@
         });
 
         // 1. Fade-in each line, one after another
-        tl.fromTo(split.lines,
+        tl.fromTo(el,
           { opacity: 0, y: 20 },
           {
             opacity: 1,
             y: 0,
             stagger: 0.1,
             ease: "power2.out"
-          }
+          },
+          0
         )
 
-        // 2. Then fade-out each line in the same stagger
-        .to(split.lines,
+        tl.to(el,
           {
             opacity: 0,
             y: -20,
             stagger: 0.1,
-            ease: "power2.in"
+            ease: "power2.out"
           },
-          "+=0.1"  // small hold before fade-out, optional
-        );
-        // Fade In
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: "top 97%",
-            end: "bottom 75%",
-            scrub: 1
-          }
-        })
-        .fromTo(el,
-          { opacity: 0 },
-          { opacity: 1 }
-        );
-        // .fromTo(split.lines,
-        //   { opacity: 0, y: 20 },
-        //   { opacity: 1, y: 0, stagger: 0.3, ease: "power2.out" }
-        // )
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            // start: "top 20%",
-            start: `top ${navHeight + 30}px`,
-            end: `bottom ${navHeight + 5}px`,
-            scrub: 1,
-            // markers: true
-          }
-        })
-        .fromTo(el,
-          { opacity: 1 },
-          { opacity: 0 }
-        );
-      });  
+          "+=3.2"
+        )
+      })
     }
 
     // Function to calculate and apply the new X value
     function updateScrollAnimation() {
       // Kill previous ScrollTrigger if it exists
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-
       horizontalScroll()
       move()
       fadeText2()
       fadeText()
-
+      pinNav()
       // Refresh ScrollTrigger system
       ScrollTrigger.refresh();
+    }
+
+    // helper to compute the new max scroll distance
+    function pinNav() {
+      //if (ScrollTrigger.getById("navTrigger")) ScrollTrigger.getById("navTrigger").kill()
+      ScrollTrigger.create({
+        id: "navTrigger",
+        trigger: "#nav",
+        start: `top top`,
+        // end:    () => "+=" + document.documentElement.scrollHeight - window.innerHeight,
+        end:    () => "+=99999",
+        pin: "#nav",
+        pinSpacing: false,
+        // markers: true,
+      });
     }
 
     function horizontalScroll() {
@@ -485,8 +527,9 @@
           end: () => `+=${projectBoxes[0].offsetWidth * (projectBoxes.length - 1)}`,
           scrub: true,
           pin: true,
-          anticipatePin: 1
-        }
+          anticipatePin: 1,
+          // markers: true
+        },
       });
     }
 
@@ -499,78 +542,10 @@
       }, 200); // Debounce delay
     });
 
-
     // Theme toggle
     document.querySelector('.toggle-theme').onclick = () => {
       document.body.classList.toggle('dark');
     };
-
-    // Smooth scroll
-    document.querySelectorAll("nav a").forEach(link => {
-      link.addEventListener("click", e => {
-        e.preventDefault();
-        document.querySelector(link.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-// 1. Select all nav links and section elements
-const navLinks = document.querySelectorAll("nav a");
-const sections = document.querySelectorAll("section[id]");
-
-// 2. Manually scroll to section and center nav link
-navLinks.forEach(link => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-
-    const targetId = link.getAttribute("href").substring(1);
-    const targetSection = document.getElementById(targetId);
-
-    if (targetSection) {
-      // Scroll to section smoothly
-      targetSection.scrollIntoView({ behavior: "smooth" });
-
-      // After browser processes scroll, center the nav link
-      requestAnimationFrame(() => {
-        link.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest"
-        });
-      });
-    }
-  });
-});
-
-// 3. Observe sections and update nav highlight and centering
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    const id = entry.target.getAttribute("id");
-    const link = document.querySelector(`nav a[href="#${id}"]`);
-
-    if (entry.isIntersecting) {
-      navLinks.forEach(a => a.classList.remove("active"));
-
-      if (link) {
-        link.classList.add("active");
-
-        // Scroll nav to center active link
-        requestAnimationFrame(() => {
-          link.scrollIntoView({
-            behavior: "smooth",
-            inline: "center",
-            block: "nearest"
-          });
-        });
-      }
-    }
-  });
-}, {
-  threshold: 0.5 // Trigger when 50% of section is visible
-});
-
-// 4. Start observing each section
-sections.forEach(section => sectionObserver.observe(section));
-
 
     // Modal logic
     const modal = document.getElementById('projectModal');
