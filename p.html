@@ -119,6 +119,9 @@
       min-height: 80vh;
       /* height: 100vh; */
     }
+    section h2 {
+      font-size: 2rem !important;
+    }
     #skills .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -207,6 +210,117 @@
       color: var(--accent);
     }
 
+
+    #content1 {
+      padding: 0;
+    }
+
+    .images1 {
+      padding: 0;
+      padding-top: 20vh;
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      min-height: 150vh;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(20, 5%);
+      grid-template-rows: repeat(30, 3%);
+      justify-content: center;
+      justify-items: center;
+      align-items: center;
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    img {
+      width: 100%;
+      /* height: 100%; */
+      object-fit: cover;
+      display: block;
+    }
+/* 
+    img:nth-child(1) {
+      grid-area: 1/1/6/8;
+    }
+
+    img:nth-child(2) {
+      grid-area: 3/12/8/20;
+    }
+
+    img:nth-child(3) {
+      grid-area: 9/5/13/15;
+    }
+
+    img:nth-child(4) {
+      grid-area: 14/1/18/8;
+    }
+
+    img:nth-child(5) {
+      grid-area: 16/12/20/19;
+    }
+
+    img:nth-child(6) {
+      grid-area: 20/2/25/9;
+    }
+
+    img:nth-child(7) {
+      grid-area: 22/11/24/20;
+    }
+
+    img:nth-child(8) {
+      grid-area: 26/5/30/15;
+    } */
+
+    /* preserve your placements on large screens */
+    @media (min-width: 900px) {
+      img:nth-child(1)  { grid-area: 1/1/6/8;  }
+      img:nth-child(2)  { grid-area: 3/12/8/20; }
+      img:nth-child(3)  { grid-area: 9/5/13/15; }
+      img:nth-child(4)  { grid-area: 14/1/18/8; }
+      img:nth-child(5)  { grid-area: 16/12/20/19;}
+      img:nth-child(6)  { grid-area: 20/2/25/9; }
+      img:nth-child(7)  { grid-area: 22/11/24/20;}
+      img:nth-child(8)  { grid-area: 26/5/30/15;}
+    }
+
+    /* fallback to a simple 2-column flow on small screens */
+    @media (max-width: 899px) {
+      .images1 {
+        padding-top: 15vh;
+      }
+
+        img:nth-child(1)  { grid-area: 1/1/10/12;  }
+        img:nth-child(2)  { grid-area: 5/10/12/20; }
+        img:nth-child(3)  { grid-area: 10/7/16/17; }
+        img:nth-child(4)  { grid-area: 16/1/20/12; }
+        img:nth-child(5)  { grid-area: 18/10/24/21;}
+        img:nth-child(6)  { grid-area: 20/2/25/9; }
+      img:nth-child(7)  { grid-area: 23/8/28/18;}
+      img:nth-child(8)  { grid-area: 27/5/35/16;}
+        /*img:nth-child(6)  { grid-area: 20/2/25/9; } */
+    }
+
+    /* fallback to a simple 2-column flow on small screens */
+    @media (max-width: 599px) {
+      .images1 {
+        padding-top: 10vh;
+      }
+
+      img:nth-child(1)  { grid-area: 1/1/12/14;  }
+      img:nth-child(2)  { grid-area: 2/7/18/22 }
+      img:nth-child(3)  { grid-area: 9/5/19/19; }
+      img:nth-child(4)  { grid-area: 14/2/21/16 }
+      img:nth-child(5)  { grid-area: 17 / 7 / 22 / 24}
+      img:nth-child(6)  { grid-area: 22/5/26/19}
+      img:nth-child(7)  { grid-area: 26/2/26/16}
+      img:nth-child(8)  { grid-area: 29/7/30/22}
+      /*img:nth-child(6)  { grid-area: 20/2/25/9; } */
+    }
+
+
+
   </style>
 </head>
 <body>
@@ -276,16 +390,20 @@
 
       <section id="certificates">
         <h2 class="fade-text">Certificates & Achievements</h2>
-        <ul>
-          <li class="fade-text">Scientific Computing with Python – freeCodeCamp (May 2025)</li>
-          <li class="fade-text">Quality Assurance – freeCodeCamp (Mar 2025)</li>
-          <li class="fade-text">Back End Development and APIs  – freeCodeCamp  (Jan 2025)</li>
-          <li class="fade-text">Relational Database – freeCodeCamp (Dec 2024)</li>
-          <li class="fade-text">Data Visualization – freeCodeCamp (Nov 2024)</li>
-          <li class="fade-text">Front End Development Libraries – freeCodeCamp (Oct 2024)</li>
-          <li class="fade-text">JavaScript Algorithms and Data Structures – freeCodeCamp (Sep 2024)</li>
-          <li class="fade-text">Responsive Web Design – freeCodeCamp (Aug 2022)</li>
-        </ul>
+        <div id="wrapper1">
+	        <section id="content1">
+            <section class="images1">
+              <img class="fade-text" data-speed="2.4" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="2.7" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="3" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+               <img data-speed="3.3" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="2.7" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="3.6" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="2.4" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+              <img data-speed="3" src="https://media.licdn.com/dms/image/v2/D562DAQHOCC-ewBdplw/profile-treasury-image-shrink_800_800/B56ZcvM.amHgAY-/0/1748843620815?e=1752202800&v=beta&t=_HTWro1Idc_sS3LN9CRqnbKSorBNKBLEhU94xwvKxqQ" alt="">
+            </section>
+          </section>
+        </div>
       </section>
 
       <section id="testimonials">
@@ -325,7 +443,32 @@
   <script src="ScrollTrigger.min.js"></script>
   <script src="ScrollSmoother.min.js"></script>
   <script src="ScrollToPlugin.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
 
+  function applyParallaxToImages(containerSelector) {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+
+    const images = container.querySelectorAll("img[data-speed]");
+
+    images.forEach(img => {
+      const speed = parseFloat(img.dataset.speed) || 1;
+
+      gsap.to(img, {
+        y: () => -(speed * 100),
+        ease: "none",
+        scrollTrigger: {
+          trigger: img,
+          start: "top bottom", // when img enters the viewport
+          end: "bottom top",   // until it leaves
+          scrub: true
+        }
+      });
+    });
+  }
+  
+</script>
   <script>
 
     // Animate elements when page is loaded
@@ -335,6 +478,7 @@
       fadeInOnLoad()
       document.fonts.ready.then(() => {
         updateScrollAnimation();
+        applyParallaxToImages("#certificates .images1");
       });
     });
 
