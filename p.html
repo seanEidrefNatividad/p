@@ -517,6 +517,7 @@
         x: () => -(contents + gaps),
         ease: "none",
         scrollTrigger: {
+          id: "scrollx",
           trigger: "#projects-section",
           start: "top top",
           end: () => `+=${contents + gaps}`,
@@ -533,7 +534,8 @@
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        location.reload()
+        ScrollTrigger.getById("scrollx").kill()
+        if (!ScrollTrigger.getById("scrollx")) horizontalScroll()
       }, 200); // Debounce delay
     });
 
