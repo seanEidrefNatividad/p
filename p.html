@@ -352,6 +352,11 @@
   <script src="ScrollSmoother.min.js"></script>
   <script src="ScrollToPlugin.min.js"></script>
 
+  <!-- features -->
+  <script src="features/fade.js"></script>
+  <script src="features/split-text.js"></script>
+
+
   <script>
 
     // Animate elements when page is loaded
@@ -472,53 +477,6 @@
       });  
     }
 
-    function fadeText() {
-      const elements = gsap.utils.toArray(".fade-text");
-      const navHeight = document.getElementById("nav")?.offsetHeight || 0;
-
-      let lines = []
-      elements.forEach(el => {
-        const split = SplitText.create(el, { type: "lines" });
-        if (el.nodeName == "P" || el.nodeName == "H2" || el.nodeName == "LI" || el.nodeName == "DIV" || el.nodeName == "BLOCKQUOTE") {
-          lines.push(...split.lines)
-        }
-      })  
-
-      lines.forEach(el => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            id: "fade",
-            trigger: el,
-            start: "top 97%",
-            end:   `bottom ${navHeight + 5}px`,
-            scrub: true,
-            // markers: true
-          }
-        });
-
-        // 1. Fade-in each line, one after another
-        tl.fromTo(el,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.1,
-            ease: "power2.out"
-          },
-          0
-        )
-
-        tl.to(el,
-          {
-            opacity: 0,
-            y: -20,
-            stagger: 0.1,
-            ease: "power2.out"
-          },
-          "+=3.2"
-        )
-      })
-    }
 
     // Function to calculate and apply the new X value
     function updateScrollAnimation() {
@@ -527,7 +485,7 @@
       horizontalScroll()
       move()
       fadeText2()
-      fadeText()
+      splitText()
       pinNav()
       // Refresh ScrollTrigger system
       ScrollTrigger.refresh();
