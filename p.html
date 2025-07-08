@@ -184,6 +184,55 @@
       font-size: 1.2rem;
       padding-bottom: .5rem;
     }
+    #certificates img {
+      width: 2rem;
+      height: 2rem;
+      margin-right: .5rem;
+      margin-top: .25rem;
+    }
+    #certificates ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction:column;
+      justify-content: start;
+    }
+    #certificates li {
+      margin: .5rem 0;
+      display: flex;
+    }
+    .cert-details {
+      font-size: 20px;
+    }
+    span {
+      display: block
+    }
+    .cert-title {
+      font-size: 1rem;
+    }
+    .cert-from {
+      font-size: .85rem;
+    }
+    .cert-date {
+      color: rgb(99, 99, 99);
+      font-size: .85rem;
+    }
+    
+    @media (min-width: 960px) {
+      .cert-from, .cert-title, .cert-date {
+        display: inline-block;
+      }
+      .cert-title {
+        font-size: 20px;
+      }
+      .cert-from {
+        font-size: 1rem;
+      }
+      .cert-date {
+        color: rgb(99, 99, 99);
+        font-size: 1rem;
+      }
+     
+    }
     footer {
       text-align: center;
       padding: 2rem;
@@ -304,14 +353,73 @@
       <section id="certificates">
         <h2 class="fade-text">Certificates & Achievements</h2>
         <ul>
-          <li class="fade-text">Scientific Computing with Python – freeCodeCamp (May 2025)</li>
-          <li class="fade-text">Quality Assurance – freeCodeCamp (Mar 2025)</li>
-          <li class="fade-text">Back End Development and APIs  – freeCodeCamp  (Jan 2025)</li>
-          <li class="fade-text">Relational Database – freeCodeCamp (Dec 2024)</li>
-          <li class="fade-text">Data Visualization – freeCodeCamp (Nov 2024)</li>
-          <li class="fade-text">Front End Development Libraries – freeCodeCamp (Oct 2024)</li>
-          <li class="fade-text">JavaScript Algorithms and Data Structures – freeCodeCamp (Sep 2024)</li>
-          <li class="fade-text">Responsive Web Design – freeCodeCamp (Aug 2022)</li>
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Scientific Computing with Python</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued May 2025</span>
+            </div>
+          </li>
+
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Quality Assurance</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Mar 2025</span>
+            </div>
+          </li>
+
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Back End Development and APIs</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Jan 2025</span>
+            </div>
+          </li>
+
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Relational Database</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Dec 2024</span>
+            </div>
+          </li>
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Data Visualization</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Nov 2024</span>
+            </div>
+          </li>
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Front End Development Libraries</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Oct 2024</span>
+            </div>
+          </li>
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Javascript Algorithms and Data Structures</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued Sep 2024</span>
+            </div>
+          </li>
+          <li class="cert-content">
+            <img src="images/fcc.png" class="fade-text" alt="">
+            <div class="cert-details">
+              <span class="cert-title fade-text">Responsive Web Design</span>
+              <span class="cert-from fade-text">freeCodeCamp</span>
+              <span class="cert-date fade-text">Issued 2022</span>
+            </div>
+          </li>
         </ul>
       </section>
 
