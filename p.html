@@ -158,14 +158,13 @@
       width: max-content;
     }
     .project-box {
-      background: var(--card-bg);
+      background: var(--bg);
       width: min(100vw,960px);
       height: 75vh;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       padding: .5rem;
     }
     .project-box img {
@@ -175,10 +174,11 @@
       display: block;
     }
     .project-box .contents{
-      height: 100%;
+      height: auto;
       border-radius: 1rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
       overflow: hidden;
+      background-color: var(--card-bg);
     }
     .project-box .contents div{
       padding: 1rem;
