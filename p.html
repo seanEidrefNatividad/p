@@ -55,7 +55,8 @@
     header h1 { font-size: 2.8rem; }
     header p { font-size: 1.2rem; color: var(--text); }
     .nav-container {
-
+      background: var(--card-bg);
+      z-index: 9999;
     }
     nav {
       background: var(--card-bg);
@@ -319,17 +320,20 @@
           <p class="fade-in fade-text2">Full-Stack Developer delivering smart web solutions that exceed expectations.</p>
         </div>
       </header>
-      <div class="logo"><img src="images/logo.png" alt=""></div>
+      <div class="nav-container">
+        <div class="logo"><img src="images/logo.png" alt=""></div>
 
-      <nav id="nav">
-        <a class="fade-in-nav" href="#about">About</a>
-        <a class="fade-in-nav" href="#skills">Skills</a>
-        <a class="fade-in-nav" href="#projects-section">Projects</a>
-        <a class="fade-in-nav" href="#certificates">Certificates</a>
-        <!-- <a class="fade-in-nav" href="#testimonials">Testimonials</a> -->
-        <a class="fade-in-nav" href="#goals">Goals</a>
-        <a class="fade-in-nav" href="#contact">Contact</a>
-      </nav>
+        <nav id="nav">
+          <a class="fade-in-nav" href="#about">About</a>
+          <a class="fade-in-nav" href="#skills">Skills</a>
+          <a class="fade-in-nav" href="#projects-section">Projects</a>
+          <a class="fade-in-nav" href="#certificates">Certificates</a>
+          <!-- <a class="fade-in-nav" href="#testimonials">Testimonials</a> -->
+          <a class="fade-in-nav" href="#goals">Goals</a>
+          <a class="fade-in-nav" href="#contact">Contact</a>
+        </nav>
+      </div>
+      
       <section id="about">
         <h2 class="fade-text">About Me</h2>
           <p class="fade-text">
@@ -591,7 +595,7 @@
             });
           }
         });
-      }, { threshold: 0.6
+      }, { threshold: 0.5
        });
 
       sections.forEach(sec => sectionObserver.observe(sec));
@@ -617,7 +621,7 @@
 
     function move() {
       gsap.to("#hero-content", {
-        y: "45vh",
+        y: "40vh",
         ease: "none",
         scrollTrigger: {
           trigger: "#hero",
@@ -676,34 +680,18 @@
       fadeLogo()
       fadeText2()
       splitText()
-      pinLogo()
-      pinNav()
+      pinNavContainer()
       // Refresh ScrollTrigger system
       ScrollTrigger.refresh();
     }
 
-    // helper to compute the new max scroll distance
-    function pinNav() {
-      //if (ScrollTrigger.getById("navTrigger")) ScrollTrigger.getById("navTrigger").kill()
+    function pinNavContainer() {
       ScrollTrigger.create({
-        id: "navTrigger",
-        trigger: ".logo",
-        start: `top top`,
-        // end:    () => "+=" + document.documentElement.scrollHeight - window.innerHeight,
-        end:    () => "+=99999",
-        pin: "#nav",
-        pinSpacing: false,
-        // markers: true,
-      });
-    }
-
-    function pinLogo() {
-      ScrollTrigger.create({
-        id: "logoTrigger",
-        trigger: ".logo",
+        id: "navContainerTrigger",
+        trigger: ".nav-container",
         start: `top top`,
         end:    () => "+=99999",
-        pin: ".logo",
+        pin: ".nav-container",
         pinSpacing: false,
       });
     }
@@ -716,6 +704,7 @@
       const df = parseFloat(getComputedStyle(projects).gap)
       const gaps = parseFloat(getComputedStyle(projects).gap)  * scale
       const logoHeight = document.querySelector(".logo")?.offsetHeight || 0;
+      // const containerHeight = document.querySelector(".nav-container")?.offsetHeight || 0;
 
       gsap.to(projects, {
         x: () => -(contents + gaps),
