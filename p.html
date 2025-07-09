@@ -241,6 +241,9 @@
       }
      
     }
+    #goals {
+      padding-bottom: 150px;
+    }
     #goals p {
       font-size: 20px;
       margin-bottom: 2rem;
@@ -505,6 +508,7 @@
     window.addEventListener('load', () => {
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText);
       scrollSmoother()
+      sectionObserver()
       fadeInOnLoad()
       document.fonts.ready.then(() => {
         updateScrollAnimation();
@@ -564,7 +568,8 @@
             });
           }
         });
-      }, { threshold: [0.5, 0.6] });
+      }, { threshold: 0.6
+       });
 
       sections.forEach(sec => sectionObserver.observe(sec));
     }
