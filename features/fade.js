@@ -1,11 +1,11 @@
-function fade(lines, navHeight) {
+function fade(lines, navHeight, logoHeight) {
   lines.forEach(el => {
     const tl = gsap.timeline({
       scrollTrigger: {
         id: "fade",
         trigger: el,
         start: "top 97%",
-        end:   `bottom ${navHeight + 5}px`,
+        end:   `bottom ${navHeight + logoHeight + 5}px`,
         scrub: true,
         // markers: true
       }

@@ -14,6 +14,7 @@
       --card-bg: #fff;
       --accent: #0d6efd;
       --nav-height: 5rem;
+      --logo-height: 48px;
     }
     body.dark {
       --bg: #0d1117;
@@ -46,13 +47,16 @@
       position: relative;
     }
     #hero {
-      height: calc(100vh - var(--nav-height, 80vh));
+      height: calc(100vh - var(--nav-height, 80vh) - var(--logo-height));
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
     header h1 { font-size: 2.8rem; }
     header p { font-size: 1.2rem; color: var(--text); }
+    .nav-container {
+
+    }
     nav {
       background: var(--card-bg);
       text-align: center;
@@ -108,7 +112,7 @@
     }
     h2 {
       font-size: 2rem !important;
-      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
     }
     .toggle-theme {
       position: fixed;
@@ -153,7 +157,6 @@
     }
     #projects-section h2 {
       text-align: center;
-      margin-bottom: 1.5rem;
       font-size: 2rem;
     }
     .projects {
@@ -164,7 +167,7 @@
     .project-box {
       background: var(--bg);
       width: min(100vw,960px);
-      height: 75vh;
+      height: 70vh;
       border-radius: 8px;
       cursor: pointer;
       display: flex;
@@ -176,6 +179,7 @@
       height: auto;
       object-fit: cover;
       display: block;
+      max-height: 85%;
     }
     .project-box .contents{
       height: auto;
@@ -283,6 +287,24 @@
       color: var(--accent);
     }
 
+    .logo {
+      width: 100vw;
+      background: var(--card-bg);
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      height: 40px;
+      z-index: 999;
+    }
+    .logo img {
+      width: 80px;
+      height: 40px;
+      transform: skew(-25deg);
+      margin: 0 auto;
+      padding-top: .5rem;
+      z-index: 99;
+    }
+
   </style>
 </head>
 <body>
@@ -297,6 +319,7 @@
           <p class="fade-in fade-text2">Full-Stack Developer delivering smart web solutions that exceed expectations.</p>
         </div>
       </header>
+      <div class="logo"><img src="images/logo.png" alt=""></div>
 
       <nav id="nav">
         <a class="fade-in-nav" href="#about">About</a>
@@ -594,7 +617,7 @@
 
     function move() {
       gsap.to("#hero-content", {
-        y: "30vh",
+        y: "45vh",
         ease: "none",
         scrollTrigger: {
           trigger: "#hero",
@@ -603,6 +626,23 @@
           scrub: true
         }
       });
+    }
+
+    function fadeLogo() {
+      const el = document.querySelector(".logo img");
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "bottom 30%",
+          end: `bottom 10%`,
+          scrub: .5,
+          // markers: true,
+        }
+      })
+      .fromTo(el,
+        { opacity: 0, width: "0", height: "0" },
+        { opacity: 1, width: "80px", height: "40px" }
+      );
     }
 
     function fadeText2() {
@@ -621,8 +661,8 @@
         })
         .fromTo(el,
           { opacity: 1 },
-          { opacity: 0 }
-        );
+          { opacity: 0, scale: 0 }
+        )
       });  
     }
 
@@ -633,8 +673,10 @@
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       horizontalScroll()
       move()
+      fadeLogo()
       fadeText2()
       splitText()
+      pinLogo()
       pinNav()
       // Refresh ScrollTrigger system
       ScrollTrigger.refresh();
@@ -645,13 +687,24 @@
       //if (ScrollTrigger.getById("navTrigger")) ScrollTrigger.getById("navTrigger").kill()
       ScrollTrigger.create({
         id: "navTrigger",
-        trigger: "#nav",
+        trigger: ".logo",
         start: `top top`,
         // end:    () => "+=" + document.documentElement.scrollHeight - window.innerHeight,
         end:    () => "+=99999",
         pin: "#nav",
         pinSpacing: false,
         // markers: true,
+      });
+    }
+
+    function pinLogo() {
+      ScrollTrigger.create({
+        id: "logoTrigger",
+        trigger: ".logo",
+        start: `top top`,
+        end:    () => "+=99999",
+        pin: ".logo",
+        pinSpacing: false,
       });
     }
 
@@ -662,13 +715,16 @@
       const contents = projectBoxes[0].offsetWidth * scale
       const df = parseFloat(getComputedStyle(projects).gap)
       const gaps = parseFloat(getComputedStyle(projects).gap)  * scale
+      const logoHeight = document.querySelector(".logo")?.offsetHeight || 0;
+
       gsap.to(projects, {
         x: () => -(contents + gaps),
         ease: "none",
         scrollTrigger: {
           id: "scrollx",
           trigger: "#projects-section",
-          start: "top top",
+          // start: "top top",
+          start: `top ${logoHeight}px`,
           end: () => `+=${contents + gaps}`,
           scrub: true,
           pin: true,
