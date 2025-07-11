@@ -310,7 +310,7 @@
       font-size: 1.2rem;
       cursor: pointer;
       color: var(--accent);
-    }
+    } */
 
     .logo {
       width: 100vw;
@@ -533,13 +533,13 @@
         &copy; 2025 Sean Eidref D. Natividad. All rights reserved.
       </footer>
 
-      <div class="modal" id="projectModal">
+      <!-- <div class="modal" id="projectModal">
         <div class="modal-content">
           <span class="close-modal">&times;</span>
           <h3 id="modalTitle">Project Title</h3>
           <p id="modalDesc">Project description...</p>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -782,18 +782,18 @@
     };
 
     // Modal logic
-    const modal = document.getElementById('projectModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    document.querySelectorAll('.project-box').forEach(box => {
-      box.onclick = () => {
-        modalTitle.textContent = box.dataset.title;
-        modalDesc.textContent = box.dataset.desc;
-        modal.style.display = 'flex';
-      };
-    });
-    document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
-    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+    // const modal = document.getElementById('projectModal');
+    // const modalTitle = document.getElementById('modalTitle');
+    // const modalDesc = document.getElementById('modalDesc');
+    // document.querySelectorAll('.project-box').forEach(box => {
+    //   box.onclick = () => {
+    //     modalTitle.textContent = box.dataset.title;
+    //     modalDesc.textContent = box.dataset.desc;
+    //     modal.style.display = 'flex';
+    //   };
+    // });
+    // document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
+    // window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
   </script>
 </body>
 </html>
