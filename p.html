@@ -15,11 +15,13 @@
       --accent: #0d6efd;
       --nav-height: 5rem;
       --logo-height: 48px;
+      --info-shadow: 0 3px 8px rgba(0,0,0,0.15);
     }
     body.dark {
       --bg: #0d1117;
       --text: #ccc;
       --card-bg: #161b22;
+      --info-shadow: 0 3px 8px rgba(255, 255, 255, 0.15);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -165,12 +167,30 @@
       gap: 1rem;
       width: max-content;
     }
+    .project-info {
+      opacity: .60;
+      position: relative;
+      top: 2.5rem;
+      left: 75%;
+      padding: .35rem;
+      border-radius: .5rem;
+      box-shadow: var(--info-shadow);
+      /* box-shadow: 0 3px 8px rgba(255, 255, 255, 0.15); */
+      width: fit-content;
+      background: rgb(201, 201, 201);
+      font-weight: 700;
+    }
+    .project-info span {
+      font-size: 1.15rem;
+      /* color: var(--text); */
+      color: black;
+      opacity: 1;
+    }
     .project-box {
       background: var(--bg);
       width: min(100vw,960px);
       height: 70vh;
       border-radius: 8px;
-      cursor: pointer;
       display: flex;
       flex-direction: column;
       padding: .5rem;
@@ -380,6 +400,7 @@
       </section>
 
       <section id="projects-section">
+        <div class="project-info"><span>scroll  <i class="fa-solid fa-up-right-and-down-left-from-center" style="transform: rotate(-45deg);"></i></span></div>
         <h2>Projects</h2>
         <div class="projects">
           <div class="project-box" data-title="Project 1" data-desc="Student Management System">
@@ -537,6 +558,7 @@
       scrollSmoother()
       sectionObserver()
       fadeInOnLoad()
+      bounceShake();
       document.fonts.ready.then(() => {
         updateScrollAnimation();
       });
@@ -630,6 +652,22 @@
           scrub: true
         }
       });
+    }
+
+    function bounceShake() {
+      gsap.fromTo(".project-info",
+        { y: 0 },
+        {
+          y: -15,
+          duration: 0.18,
+          yoyo: true,
+          repeat: 5,
+          ease: "power1.inOut",
+          onComplete: () => {
+            gsap.delayedCall(Math.random() * 4, bounceShake);
+          }
+        }
+      );
     }
 
     function fadeLogo() {
