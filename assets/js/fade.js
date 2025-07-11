@@ -13,11 +13,11 @@ function fade(lines, containerHeight) {
 
     // 1. Fade-in each line, one after another
     tl.fromTo(el,
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: 5 },
       {
         opacity: 1,
         y: 0,
-        stagger: 0.1,
+        stagger: 0.4,
         ease: "power2.out"
       },
       0
@@ -26,11 +26,11 @@ function fade(lines, containerHeight) {
     tl.to(el,
       {
         opacity: 0,
-        y: -20,
-        stagger: 0.1,
+        y: -5,
+        stagger: 0.4,
         ease: "power2.out"
       },
-      "+=3.2"
+      "+=4.6"
     )
   })
 }
