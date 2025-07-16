@@ -415,9 +415,32 @@
       opacity: 0;
     }
 
+    #fullscreen-proxy {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.9);
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+
+    #fullscreen-proxy img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
   </style>
 </head>
 <body>
+  <div id="fullscreen-proxy"></div> <!-- fixed layer OUTSIDE smoother -->
 
   <span class="toggle-theme">🌓</span>
 
@@ -471,7 +494,12 @@
       <section id="skills">
         <h2 class="fade-text">Skills</h2>
         <div class="skills-grid">
-          <div class="skill fade-text">HTML5</div>
+          <div class="skill fade-text">
+            <div>
+              <img src="" alt="">
+            </div>
+            HTML5
+          </div>
           <div class="skill fade-text">CSS3</div>
           <div class="skill fade-text">JavaScript</div>
           <div class="skill fade-text">jQuery</div>
@@ -679,20 +707,23 @@
       </section>
 
       <script>
-        // document.querySelectorAll('.project-image').forEach(img => {
         document.querySelectorAll('.image-container').forEach(img => {
           img.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-              let child = img.querySelector('.project-image')
-              child.requestFullscreen().catch(err => {
-                console.error("Failed to enter fullscreen:", err);
-                alert("Failed to enter fullscreen")
-              });
-            } else {
-              document.exitFullscreen();
-            }
+            const proxy = document.getElementById('fullscreen-proxy');
+            const child = img.querySelector('.project-image');
+            proxy.innerHTML = ""; // clear existing
+            const clone = child.cloneNode(true);
+            clone.classList.remove('project-image')
+            proxy.appendChild(clone);
+            proxy.style.display = 'flex';
+
+            // Close on click
+            proxy.addEventListener('click', () => {
+              proxy.style.display = 'none';
+              proxy.innerHTML = "";
+            }, { once: true });
+          });
         });
-      });
       </script>
 
 
